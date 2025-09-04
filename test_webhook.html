@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Webhook Test</title>
+</head>
+<body>
+  <h2>Google Apps Script Webhook Test</h2>
+  <button onclick="sendTest()">Send Test POST</button>
+  <p id="output"></p>
+
+  <script>
+    const SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbyD0mLJG2E_QyPsZUp0UsWsgVmh7sA4xkR8gQAqxPxmfr2Pz-YsMGVj-rcKxfG3v5Ldg/exec";
+
+    async function sendTest() {
+      try {
+        const res = await fetch(SHEETS_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ hello: "world" })
+        });
+        const data = await res.text(); // show raw response
+        document.getElementById("output").textContent = "Response: " + data;
+      } catch (err) {
+        document.getElementById("output").textContent = "Error: " + err;
+      }
+    }
+  </script>
+</body>
+</html>
